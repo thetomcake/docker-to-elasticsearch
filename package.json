@@ -1,0 +1,20 @@
+{
+  "name": "docker-to-elasticsearch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tom Lindley <tom.lindley@onsecurity.co.uk>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "alpine": "^0.2.1",
+    "apache-log": "0.0.11",
+    "docker-loghose": "^1.6.4",
+    "dockerode": "^2.5.7",
+    "dumper.js": "^1.2.0",
+    "elasticsearch": "^15.2.0",
+    "utf8": "^3.0.0"
+  }
+}
