@@ -84,14 +84,13 @@ let handleOutput = function(stream, containerData, data) {
 
 let pushToQueue = function(data) {
     createEsIndexIfNotExists(getEsIndex()).then(() => {
-        queue
-            .push({
-                index: {
-                    _index: getEsIndex(),
-                    _type: ES_TYPE
-                }
-            })
-            .push(data);
+        queue.push({
+            index: {
+                _index: getEsIndex(),
+                _type: ES_TYPE
+            }
+        });
+        queue.push(data);
         afterPushToQueue();
     });
 };
@@ -224,12 +223,13 @@ let processLogsSinceStarted = function(containerData) {
     container.logs({stdout: true, stderr: true, follow: false}).then((data) => {
         let rows = data.split("\n").slice(0, -1);
         rows.forEach((row) => {
-            let buffer = new Buffer(row, 'utf-8');
+            let buffer = Buffer.from(row, 'utf-8');
             let streamNumber = buffer.readInt8();
             let stream = (streamNumber === 1 ? 'stdout' : (streamNumber === 2 ? 'stderr' : 'unknown'));
             handleOutput(stream, containerData, buffer.toString('utf-8', 8));
         });
-    }).catch(() => {
+    }).catch((err) => {
+        console.log(err);
          console.error('Unable to process logs since started for container: ' + containerData.Id);
     });
 };
