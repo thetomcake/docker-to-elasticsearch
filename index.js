@@ -1,6 +1,8 @@
 const DEBUG = parseInt(process.env.DEBUG) || 0 ? true : false;
 const ES_HOST = process.env.ES_HOST || 'localhost'; // The hostname for the Elasticsearch server (pooling not supported currently)
 const ES_PORT = process.env.ES_PORT || 9200;  // The port for the Elasticsearch server
+const ES_USERNAME = process.env.ES_USERNAME || null;  // The username for the Elasticsearch server
+const ES_PASSWORD = process.env.ES_PASSWORD || null;  // The password for the Elasticsearch server
 const ES_PROTO = process.env.ES_PROTO || 'https'; // The protocol used for the Elasticsearch server connections
 const ES_INDEX = process.env.ES_INDEX || 'logs'; // The Elasticsearch index the data should be stored in
 const ES_INDEX_DATE_APPENDIX = parseInt(process.env.ES_INDEX_DATE_APPENDIX) ? true : false;
@@ -18,7 +20,7 @@ const through = require('through2');
 const Alpine = new require('alpine');
 const esClient = new Es.Client( {
     hosts: [
-        ES_PROTO + '://' + ES_HOST + ':' + ES_PORT,
+        ES_PROTO + '://' + (!!ES_USERNAME && !!ES_PASSWORD ? ES_USERNAME + ':' + ES_PASSWORD + '@' : '') + ES_HOST + ':' + ES_PORT,
     ]
 });
 const utf8 = require('utf8');
