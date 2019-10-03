@@ -14,7 +14,8 @@
     "docker-loghose": "^1.6.4",
     "dockerode": "^2.5.7",
     "dumper.js": "^1.2.0",
-    "elasticsearch": "^15.2.0",
+    "elasticsearch": "^16.4.0",
+    "lodash": "^4.17.15",
     "utf8": "^3.0.0"
   }
 }
